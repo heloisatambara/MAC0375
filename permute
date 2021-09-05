@@ -6,11 +6,20 @@ while True:
         break
     except: print("Enter numbers")
 
-st = input('What do you want to permute? ')
+print('Create a list of what you want to permute.')
+lis = []
 
-a = list(product(st, repeat=n))
+while True:
+    p = input('What do you want to permute? ')
+    lis.append(p)
+    ask = input('Do you want to add anything else? Y/N: ')
+    if ask == 'N':
+        break
+
+
+a = list(product(lis, repeat=n))
 for k in range(len(a)):
     st = ''
     for j in range(n):
-        st = st + a[k][j]
+        st = st + ' ' +  a[k][j]
     print(st)
