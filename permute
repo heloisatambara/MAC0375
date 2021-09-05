@@ -1,0 +1,16 @@
+from itertools import product
+while True:
+    n = input('How many per group? ')
+    try:
+        n = int(n)
+        break
+    except: print("Enter numbers")
+
+st = input('What do you want to permute? ')
+
+a = list(product(st, repeat=n))
+for k in range(len(a)):
+    st = ''
+    for j in range(n):
+        st = st + a[k][j]
+    print(st)
