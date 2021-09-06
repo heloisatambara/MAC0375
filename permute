@@ -23,3 +23,5 @@ for k in range(len(a)):
     for j in range(n):
         st = st + ' ' +  a[k][j]
     print(st)
+    
+print("There are", len(a), "possible groups")
