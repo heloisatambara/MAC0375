@@ -1,29 +1,16 @@
 '''
-Faça um programa que receba uma lista de genes e uma função de regulação para cada gene 
-com operadores not, and e or ('!', '&', ' | ') e imprima uma lista dos estados em que 
-cada gene estará ativado. A ordem dos genes deverá ser a ordem dada na lista. 
-Repare que o operador or está entre espaços que equivale a separar com parênteses. 
-Por exemplo, '!A&C | B&C | !C' que equivale a (!A&C) | (B&C) | (!C). 
-Não haverá parênteses nas expressões.
-Para simplificar, consideraremos que as funções serão sempre nesse formato, 
-sem encadeamentos sobrepostos difíceis de identificar. 
-
-Em outras palavras: dá para fazer um split primeiro com ' | ' para separar os pedaços 
-e depois use o que foi feito no exercício anterior para '&'. 
-Repita para todos os genes. 
-Se quiser usar outra implementação muito mais simples, utilize-a.
+Faça um programa que receba uma lista de genes e uma única função de regulação simples, 
+que não contém o operador or (' | ') e imprima uma lista dos estados estados que podem ativar o suposto gene.
 
 Exemplo de execução:
 
 Nomes dos genes (separados por vírgula): A,B,C
-Função para A: !A&C | B&C | !C
-Função para B: !A&!B | C
-Função para C: A&B
-Estados que ativarão A: ['000', '001', '010', '011', '100', '110', '111']
-Estados que ativarão B: ['000', '001', '011', '101', '111']
-Estados que ativarão C: ['110', '111']
+Função: !A&B
+['010', '011']
 
 '''
+# seu código aqui
+# importações
 from itertools import product
 #
 
@@ -97,6 +84,11 @@ for g in range(len(func_list)):
                 activate.add(state_list[k])
         #
     
-
-    print(f'Estados que ativarão {genes[g]}: {activate}') # printa a lista activate para cada gene
+    # arruma o activate para imprimir igual o do enunciado
+    acti_li = []
+    for k in range(len(state_list)):
+        if state_list[k] in activate:
+            acti_li.append(state_list[k])
+    print(f'Estados que ativarão {genes[g]}: {acti_li}') # printa a lista activate para cada gene
+    #
 #
