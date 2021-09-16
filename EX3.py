@@ -25,16 +25,19 @@ Estados que ativarão C: ['110', '111']
 
 '''
 from itertools import product
+#
 
 
+# input dos genes
 askgenes = input('Nomes dos genes (separados por vírgula): ')
 askgenes = askgenes.split(sep=',') # separa os nomes dos genes e coloca numa lista
 for k in range(len(askgenes)):
-    askgenes[k] = askgenes[k].replace(' ', '') # tira espaços que possam atrapalhar na leitura eventualmente
+    askgenes[k] = askgenes[k].replace(' ', '') # tira espaços
+#
 
 
-# Cria lista das funções
-func_list = [] # cria uma lista para as funções dos genes
+# input das funções
+func_list = []
 for k in range(len(askgenes)):
     askfunc = input('Função para {0}: '.format(askgenes[k])).strip('\n') # pergunta as funções
     askfunc = askfunc.split(sep=' | ') # separa nos "or"
@@ -42,53 +45,58 @@ for k in range(len(askgenes)):
     
 for k in range(len(func_list)):
     for j in range(len(func_list[k])):
-        func_list[k][j] = func_list[k][j].split(sep = '&') # divide os genes citados
+        func_list[k][j] = func_list[k][j].split(sep = '&') # divide os genes
 
 for k in range(len(func_list)): 
     for j in range(len(func_list[k])):
         for i in range(len(func_list[k][j])):
-            func_list[k][j][i] = func_list[k][j][i].replace(' ', '') # tira espaços que possam atrapalhar na leitura eventualmente
+            func_list[k][j][i] = func_list[k][j][i].replace(' ', '') # tira espaços 
+#
 
 
-# Cria dicionários para dar significado às funções
-fundic = {}
-gen_dict = {} 
-for k in range(len(askgenes)):
-    gen_dict.update({askgenes[k]: ''}) # cria um dicionário de relação entre os genes
-for k in range(len(askgenes)):
-    fundic.update({askgenes[k]: gen_dict})
-genes = list(fundic.keys()) # lista dos index do dicionário, para poder percorrer os valores
-
-for k in range(len(func_list)): # aqui, os genes recebem valores de relação
-    for j in range(len(fundic[genes[k]])):
-        for i in range(len(func_list[k][j])):
-            if func_list[k][j][i][0] == '!':
-                func_list[k][j][i] = func_list[k][j][i].replace('!','')
-                fundic[k][j][i].update({func_list[k][j][i]: 0}) # se o gene aparece na função com ! na frente, recebe o valor 0 no dicionario
-            else:
-                fundic[k][j][i].update({func_list[k][j][i]: 1})  # se o gene aparece na função, recebe o valor 1 no dicionário
-# se o gene não aparece, seu valor é uma string vazia
-
-print(fundic)
-
+# lista de todos os estados possíveis
 a = list(product('01', repeat=len(askgenes))) # lista dos estados possíveis dos genes (on/off) - tuplas com a situação de cada gene
 state_list = []
 for k in range(len(a)):
     state = ''
     for j in range(len(askgenes)):
         state = state + a[k][j]
-    state_list.append(state) # lista dos estados possíveis dos genes - strings representando a situação dos genes respectivamente
+    state_list.append(state) # lista dos estados possíveis dos genes
+#
 
 
-
-
-activate = [] # lista de estados que ativam
-for k in range(len(state_list)): # para cada estado,
-    for j in range(len(genes)): 
-        if fundic[genes[j]] != '': # se houver algum gene na função
-            if str(fundic[genes[j]]) != state_list[k][j]: # cujo valor não corresponde à sua posição nesse estado
-                break # ele não será adicionado na lista de ativação
-    else:
-        activate.append(state_list[k])
+# interpretação das funções
+# func_list[g][i][k] - gene k participa da função de ativação f do gene g
+for g in range(len(func_list)):
+    activate = set() # zera o set de estados que ativam para cada gene
+    for f in range(len(func_list[g])):
         
-print(activate)
+        # dicionário de relação ativa/desativa/não-participa dos genes para cada função
+        func_dict = {} 
+        for k in range(len(askgenes)):
+            func_dict.update({askgenes[k]: ''}) # index de cada gene
+        genes = list(func_dict.keys()) # lista dos index do dicionário para poder percorrer os valores    
+        
+        for k in range(len(func_list[g][f])): # gene g recebe valor de relação com gene k
+            if func_list[g][f][k][0] == '!':
+                func_list[g][f][k] = func_list[g][f][k].replace('!','')
+                func_dict.update({func_list[g][f][k]: 0}) # !gene k, recebe o valor 0
+            else:
+                func_dict.update({func_list[g][f][k]: 1})  # gene k, recebe o valor 1
+        # se o gene não aparece, seu valor é uma string vazia
+        #
+     
+  
+        # set de estados que ativam
+        for k in range(len(state_list)): # para cada estado,
+            for j in range(len(genes)): 
+                if func_dict[genes[j]] != '': # se houver algum gene na função
+                    if str(func_dict[genes[j]]) != state_list[k][j]: # cujo valor não corresponde à sua posição nesse estado
+                        break # ele não será adicionado no set de ativação
+            else:
+                activate.add(state_list[k])
+        #
+    
+
+    print(f'Estados que ativarão {genes[g]}: {activate}') # printa a lista activate para cada gene
+#
