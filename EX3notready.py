@@ -64,12 +64,12 @@ for k in range(len(func_list)): # aqui, os genes recebem valores de relação
         for i in range(len(func_list[k][j])):
             if func_list[k][j][i][0] == '!':
                 func_list[k][j][i] = func_list[k][j][i].replace('!','')
-                lidic[k][j][i].update({func_list[k][j][i]: 0}) # se o gene aparece na função com ! na frente, recebe o valor 0 no dicionario
+                fundic[k][j][i].update({func_list[k][j][i]: 0}) # se o gene aparece na função com ! na frente, recebe o valor 0 no dicionario
             else:
-                lidic[k][j][i].update({func_list[k][j][i]: 1})  # se o gene aparece na função, recebe o valor 1 no dicionário
+                fundic[k][j][i].update({func_list[k][j][i]: 1})  # se o gene aparece na função, recebe o valor 1 no dicionário
 # se o gene não aparece, seu valor é uma string vazia
 
-
+print(fundic)
 
 a = list(product('01', repeat=len(askgenes))) # lista dos estados possíveis dos genes (on/off) - tuplas com a situação de cada gene
 state_list = []
@@ -85,12 +85,10 @@ for k in range(len(a)):
 activate = [] # lista de estados que ativam
 for k in range(len(state_list)): # para cada estado,
     for j in range(len(genes)): 
-        if func_dict[genes[j]] != '': # se houver algum gene na função
-            if str(func_dict[genes[j]]) != state_list[k][j]: # cujo valor não corresponde à sua posição nesse estado
+        if fundic[genes[j]] != '': # se houver algum gene na função
+            if str(fundic[genes[j]]) != state_list[k][j]: # cujo valor não corresponde à sua posição nesse estado
                 break # ele não será adicionado na lista de ativação
     else:
         activate.append(state_list[k])
         
 print(activate)
-    
-
