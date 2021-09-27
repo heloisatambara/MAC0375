@@ -36,7 +36,7 @@ for k in range(len(askgenes)):
 # input das funções
 func_list = []
 for k in range(len(askgenes)):
-    askfunc = input('Função para {0}: '.format(askgenes[k])).strip('\n') # pergunta as funções
+    askfunc = input('Função para {0}: '.format(askgenes[k])) #.strip('\n') # pergunta as funções
     askfunc = askfunc.split(sep=' | ') # separa nos "or"
     func_list.append(askfunc) # adiciona as funções numa lista - cada indexação para um gene
     
@@ -106,7 +106,7 @@ for k in range(len(genes)):
     func_dict.update({genes[k]: ''})
     
 
-
+print('Tabela de Transição de Estados:')
 for k in range(len(state_list)):
     next_state = ''
     for j in range(len(genes)):
