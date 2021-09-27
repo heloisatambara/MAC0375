@@ -3,9 +3,7 @@ Faça um programa que receba uma lista de genes e uma função de regulação pa
 com operadores not, and e or ('!', '&', ' | ') e imprima a TABELA de TRANSIÇÃO de ESTADOS. 
 Utilize o que foi feito nos exercícios anteriores. 
 (Se quiser, pode fazer tudo diferente também)
-
 Exemplo de execução:
-
 Nomes dos genes (separados por vírgula): A,B,C
 Função para A: !A&C | B&C | !C
 Função para B: !A&!B | C
@@ -19,7 +17,6 @@ Tabela de Transição de Estados:
 101 010
 110 101
 111 111
-
 '''
 # seu código aqui
 #seu código aqui
@@ -64,7 +61,7 @@ for k in range(len(a)):
     state_list.append(state) # lista dos estados possíveis dos genes
 #
 
-
+aux = []
 # interpretação das funções
 # func_list[g][i][k] - gene k participa da função de ativação f do gene g
 for g in range(len(func_list)):
@@ -102,6 +99,21 @@ for g in range(len(func_list)):
     for k in range(len(state_list)):
         if state_list[k] in activate:
             acti_li.append(state_list[k])
-    print(f'Estados que ativarão {genes[g]}: {acti_li}') # printa a lista activate para cada gene
+    aux.append(acti_li)
+    
+
+for k in range(len(genes)):
+    func_dict.update({genes[k]: ''})
+    
+
+
+for k in range(len(state_list)):
+    next_state = ''
+    for j in range(len(genes)):
+        if state_list[k] in aux[j]:
+            func_dict.update({genes[j]: 1})
+            next_state += '1'
+        else: next_state += '0'
+    print(f'{state_list[k]} {next_state}')
     #
 #
