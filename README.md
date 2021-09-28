@@ -25,5 +25,5 @@
 
 # EX 5
 # Uma extensão do exercício 4, faz toda a transição de estados até que chegue em um estado atrator, imprime os estados atratores e o tamanho da bacia de atração - quantos estados há em todos os caminhos que levam a esse atrator.
-# An extension of exercise 4, this one does all the state transiction until it reaches an atractor state, prints those atractors and the size of its atraction bay - how many states there are in all paths that lead to this atractor.
+# An extension of exercise 4, this one does all the state transiction until it reaches an attractor state, prints those attractors and the size of its attraction bay - how many states there are in all paths that lead to this attractor.
 
