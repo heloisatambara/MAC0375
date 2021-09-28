@@ -165,5 +165,6 @@ for j in range(len(attractors)):
                 if allpaths[k][i] not in bayj:
                     bayj.append(allpaths[k][i])
     bays.append(bayj)
+    print(f'atrator: {attractors[j]} tamanho da bacia: {len(bays[j])}')
 #
 
