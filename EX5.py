@@ -66,7 +66,7 @@ for k in range(len(genfunlist)):
 for k in range(len(func_list)):
     for j in range(len(func_list[k])):
         func_list[k][j] = func_list[k][j].split(sep = '&') # split on each participation of the gene for each function of each gene
-# 
+#
 
 # lista de todos os estados possíveis
 a = list(product('01', repeat=len(genes))) # lista dos estados possíveis dos genes (on/off) - tuplas com a situação de cada gene
@@ -116,20 +116,18 @@ for g in range(len(func_list)):
         if state_list[k] in activate:
             acti_li.append(state_list[k])
     aux.append(acti_li)
-    
+    #
 
+# create the state paths
 for k in range(len(genes)):
     func_dict.update({genes[k]: ''})
     
-
-# create the state paths
+attractors = []
 allpaths = []
 for k in range(len(state_list)):
-    print(state_list[k])
     for i in range(len(allpaths)):
         if state_list[k] in allpaths[i]:
             a = 0
-            print(a)
             break
         else: a = 1
     if a:
@@ -144,6 +142,28 @@ for k in range(len(state_list)):
                     next_state += '1'
                 else: next_state += '0' # if the current state activates a gene, it recieves "1", else it recieves "0"
             state = next_state # the new state will be the current in the next loop
+            if state in path:
+                for k in range(len(path)): 
+                    if path[k] == state:
+                        if path[k:] not in attractors:
+                            attractors.append(path[k:]) # predicts if the loop will stop, then add the chain of attraction to a list of attractors, if it's not already there
         allpaths.append(path) 
-    #
 #
+
+# create the attraction bays
+bays = []
+for j in range(len(attractors)):
+    bayj =[]
+    for k in range(len(allpaths)):
+        for l in range(len(attractors[j])):
+            if attractors[j][l] not in allpaths[k]:
+                b = 0
+                break
+        else: b = 1
+        if b:
+            for i in range(len(allpaths[k])):
+                if allpaths[k][i] not in bayj:
+                    bayj.append(allpaths[k][i])
+    bays.append(bayj)
+#
+
