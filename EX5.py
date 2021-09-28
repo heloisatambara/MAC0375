@@ -38,16 +38,6 @@ atrator: ['001', '110'] tamanho da bacia: 3
 #seu código aqui
 # importações
 from itertools import product
-#
-
-'''
-# input dos genes
-askgenes = input('Nomes dos genes (separados por vírgula): ')
-askgenes = askgenes.split(sep=',') # separa os nomes dos genes e coloca numa lista
-for k in range(len(askgenes)):
-    askgenes[k] = askgenes[k].replace(' ', '') # tira espaços
-#
-'''
 
 # recieving functions and genes
 getgenes = open('E:/usp/programacoes/mac/MAC0375/example.txt','r') 
