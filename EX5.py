@@ -38,9 +38,14 @@ atrator: ['001', '110'] tamanho da bacia: 3
 #seu código aqui
 # importações
 from itertools import product
+import os
 
 # recieving functions and genes
-getgenes = open('E:/usp/programacoes/mac/MAC0375/example.txt','r') 
+#arq = input('arquivo: ')
+#direction = os.getcwd()
+#complete = os.path.join(direction, arq)
+#getgenes = open(complete,'r') 
+getgenes = open(input('file path: ', 'r')
 genfunlist = getgenes.readlines() 
 
 genes = []
@@ -140,6 +145,27 @@ for k in range(len(state_list)):
         allpaths.append(path) 
 #
 
+# fix the attractors so they don't repeat
+delete_items = []
+for k in range(len(attractors)):
+    for j in range(len(attractors[k])):
+        for i in range(len(attractors)):
+            if i > k:
+                if attractors[k][j] in attractors[i]:
+                    if i not in delete_items:
+                        delete_items.append(i)
+for k in range(len(delete_items)):
+    attractors[delete_items[k]] = 0
+
+count = 0
+while 0 in attractors:
+    if attractors[count] == 0:
+        attractors.pop(count)
+    else: count += 1
+     
+    
+        
+
 # create the attraction bays
 bays = []
 for j in range(len(attractors)):
@@ -157,4 +183,3 @@ for j in range(len(attractors)):
     bays.append(bayj)
     print(f'atrator: {attractors[j]} tamanho da bacia: {len(bays[j])}')
 #
-
