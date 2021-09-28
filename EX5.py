@@ -66,7 +66,7 @@ for k in range(len(genfunlist)):
 for k in range(len(func_list)):
     for j in range(len(func_list[k])):
         func_list[k][j] = func_list[k][j].split(sep = '&') # split on each participation of the gene for each function of each gene
-#
+# 
 
 # lista de todos os estados possíveis
 a = list(product('01', repeat=len(genes))) # lista dos estados possíveis dos genes (on/off) - tuplas com a situação de cada gene
