@@ -41,13 +41,15 @@ from itertools import product
 import os
 
 # recieving functions and genes
-#arq = input('arquivo: ')
-#direction = os.getcwd()
-#complete = os.path.join(direction, arq)
-#getgenes = open(complete,'r') 
-getgenes = open(input('file path: ', 'r')
-genfunlist = getgenes.readlines() 
-
+arq = input(' arquivo: \n').split()
+direction = os.getcwd()
+complete = os.path.join(direction, arq[0])
+getgenes = open(complete,'r') 
+# arq = 'E:/usp/programacoes/mac/MAC0375/cellcycle.txt'
+with open(arq[0], 'r') as getgenes:
+    genfunlist = getgenes.readlines()
+genfunlist.sort(key = lambda x: x[0])
+ 
 genes = []
 func_list = []
 for k in range(len(genfunlist)):
@@ -165,7 +167,7 @@ while 0 in attractors:
      
     
         
-
+attractors.sort(key = lambda x: x[0])
 # create the attraction bays
 bays = []
 for j in range(len(attractors)):
