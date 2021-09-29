@@ -35,21 +35,35 @@ atrator: ['000', '010'] tamanho da bacia: 5
 atrator: ['001', '110'] tamanho da bacia: 3
 
 '''
-#seu código aqui
-# importações
+# seu código aqui
+# imports
 from itertools import product
 import os
+
+# functions 
+def findmin(a):
+    for k in range(len(a)):
+        if a[k] == min(a):
+            return k
+
+
+def sortlist(a):
+    for k in range(findmin(a)):
+        first = a[0]
+        a.pop(0)
+        a.append(first)
+    
 
 # recieving functions and genes
 arq = input(' arquivo: \n').split()
 direction = os.getcwd()
 complete = os.path.join(direction, arq[0])
 getgenes = open(complete,'r') 
-# arq = 'E:/usp/programacoes/mac/MAC0375/cellcycle.txt'
+#arq = 'E:/usp/programacoes/mac/MAC0375/cellcycle.txt'
 with open(arq[0], 'r') as getgenes:
     genfunlist = getgenes.readlines()
-genfunlist.sort(key = lambda x: x[0])
- 
+genfunlist.sort(key = lambda x: x[0:])
+
 genes = []
 func_list = []
 for k in range(len(genfunlist)):
@@ -122,13 +136,7 @@ for k in range(len(genes)):
 attractors = []
 allpaths = []
 for k in range(len(state_list)):
-    for i in range(len(allpaths)):
-        if state_list[k] in allpaths[i]:
-            a = 0
-            break
-        else: a = 1
-    if a:
-        path = []
+        path = []   
         state = state_list[k]
         while state not in path: # stop when a state goes back to the path
             path.append(state)
@@ -166,8 +174,13 @@ while 0 in attractors:
     else: count += 1
      
     
-        
+# organizing the list of attractors
+
+for k in range(len(attractors)):
+    if len(attractors[k]) > 1:
+        sortlist(attractors[k])
 attractors.sort(key = lambda x: x[0])
+
 # create the attraction bays
 bays = []
 for j in range(len(attractors)):
@@ -183,5 +196,6 @@ for j in range(len(attractors)):
                 if allpaths[k][i] not in bayj:
                     bayj.append(allpaths[k][i])
     bays.append(bayj)
+for j in range(len(attractors)):
     print(f'atrator: {attractors[j]} tamanho da bacia: {len(bays[j])}')
 #
