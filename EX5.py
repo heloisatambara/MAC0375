@@ -182,9 +182,9 @@ for k in range(len(attractors)):
 attractors.sort(key = lambda x: x[0])
 
 # create the attraction bays
-bays = []
+basins = []
 for j in range(len(attractors)):
-    bayj =[]
+    basinj =[]
     for k in range(len(allpaths)):
         for l in range(len(attractors[j])):
             if attractors[j][l] not in allpaths[k]:
@@ -193,9 +193,9 @@ for j in range(len(attractors)):
         else: b = 1
         if b:
             for i in range(len(allpaths[k])):
-                if allpaths[k][i] not in bayj:
-                    bayj.append(allpaths[k][i])
-    bays.append(bayj)
+                if allpaths[k][i] not in basinj:
+                    basinj.append(allpaths[k][i])
+    basins.append(basinj)
 for j in range(len(attractors)):
-    print(f'atrator: {attractors[j]} tamanho da bacia: {len(bays[j])}')
+    print(f'attractor: {attractors[j]} basin size: {len(basins[j])}')
 #
